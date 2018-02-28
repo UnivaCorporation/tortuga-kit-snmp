@@ -1,0 +1,14 @@
+{
+  "name": "univa/tortuga_kit_snmp",
+  "version": "6.3.0",
+  "author": "Univa",
+  "summary": "Tortuga SNMP kit integration module",
+  "license": "Commercial",
+  "source": "http://univa.com",
+  "project_page": "http://univa.com",
+  "issues_url": "http://support.univa.com",
+  "description": "Tortuga SNMP kit integration module",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib"}
+  ]
+}
