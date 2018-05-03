@@ -1,0 +1,29 @@
+language: python
+python:
+- '3.6'
+services:
+- docker
+env:
+- TORTUGA_BUILD_DOCKER="true"
+before_install:
+- docker pull puppet/puppet-agent
+install:
+- pip install tox
+- git clone https://github.com/UnivaCorporation/tortuga.git tortuga-base
+- cd tortuga-base/
+- pip install -r requirements.txt
+- paver build
+- cd ../
+- build-kit
+script:
+- echo "Done"
+deploy:
+  provider: releases
+  api_key:
+    secure: h6TIpNIp+WAh2Cvq9NqdHBbnIC4Yw9e6MDNvgydq21y1mHuLHAH+i3+km7SPE1BL9KGXBfBMhXHuc0WK7EYMGBjH0otlHEcQUc49J8poKKgmTb9+1RgyAV8wFVQXxTTR2Frif40t0N4JJ0neYOsIu5LilNrFnEYd3njg04GB3/7SjUMc5BytJsV819zNwXmte1qUa0r2hSIXGPn2AlNUkK3VWozNJ36qHgapUEUUet+hcVC+jbrKZS+yg09UgoID6RSsKjHRXx5ge/MGnHTEjficODRIEPoGkh202xmEPpY7ZOMuIWMJKkj0Ge2JkopqjJAIJEaBJN9Vbep16sCDnRmsftaymwxuFhOXv+LlnKRrS2p5e/ScmUiLj936D30gV8kkskCgHhBXYjnvygMyunwO6xr3ytc7B+Q3/d0CnlgGEuSxBwAsVphSH+rpxm+GGSovtUTURKXbugNqd2Sk4DMOSpbxNRWmq37EE+tkovsqr35t6GOVhfZmlQOmQQRIJRTAaqu1FNl01ScpYBTWHF+NVnNYCcIHqJvvzlyRNAll7l24xmc2hldbJdk+HZ+IjP+5JQ7j+TnXYExtSeJ0R0KfvN0x3mvdH3tN6Yd1sWYlJ79xFWBbh4mkFq/zDkOjcNX5I0W2xfATl07MqsW+DPOcVliW1DSEU14yRLePPeA=
+  file_glob: true
+  file: "dist/kit-snmp*.tar.bz2"
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
